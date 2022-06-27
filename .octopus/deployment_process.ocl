@@ -4,6 +4,7 @@ step "Run an Azure Script" {
         action_type = "Octopus.AzurePowerShell"
         properties = {
             Octopus.Action.Azure.AccountId = "#{Tenant.Azure.Octopus.ServicePrincipal}"
+            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptBody = <<-EOT
                 #
                 # Created by: Eric Stadter, Last Changed:  10/21/2019
@@ -152,16 +153,5 @@ step "Run an Azure Script" {
             OctopusUseBundledTooling = "True"
         }
         worker_pool_variable = ""
-
-        packages "CEB_TopicRegistration" {
-            acquisition_location = "Server"
-            feed = "#{AX.NugetFeed.Product}"
-            package_id = "CEB_TopicRegistration"
-            properties = {
-                Extract = "True"
-                Purpose = ""
-                SelectionMode = "immediate"
-            }
-        }
     }
 }
